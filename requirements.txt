@@ -1,0 +1,4 @@
+﻿Flask>=2.2,<3
+Werkzeug>=2.2,<3
+Jinja2>=3.0,<4
+MarkupSafe>=2.0,<3

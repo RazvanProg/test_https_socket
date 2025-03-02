@@ -11,8 +11,7 @@ app = Flask(__name__)
 HOST = '0.0.0.0'
 PORT = 12345
 
-def start_socket_server():
-        
+def start_socket_server():        
     """Serverul socket care ascultă pe un port specific."""
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
@@ -24,7 +23,7 @@ def start_socket_server():
         print(f"Conexiune acceptată de la: {client_address}")
         
         # Primirea și procesarea datelor de la client
-        data = client_socket.recv(1024).decode('latin1')
+        data = client_socket.recv(1024).decode()
         print(f"Mesaj primit: {data}")
         
         # 1. Extragem partea URL dintre "GET" și "HTTP/1.1"
@@ -39,7 +38,7 @@ def start_socket_server():
         print(f"Mesajul extras: {message}")
 
         # Răspuns către client
-        response = f"Salut! Mesajul tău a fost primit: {data}"
+        response = f"Salut! Mesajul tau a fost primit: {data}"
         client_socket.sendall(response.encode())
         
         client_socket.close()
@@ -53,11 +52,7 @@ socket_thread.start()
 def home():
     message = request.args.get('msg', 'Mesajul lipsește')  # Default dacă "msg" lipsește
     print(f"Mesaj primit (GET): {message}")
-    print("Anteturi cerere:", request.headers)
-    msg_2 = request.args
-    print("Parametri GET:", request.args)  # Parametri trimiși în query string
-    print("Metodă HTTP:", request.method)
-    return f"Server HTTP și socket este în funcțiune! + {msg_2} + msg2 = {message}"
+    return "Server HTTP și socket este în funcțiune!"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Portul pentru Flask
